@@ -1,1 +1,17 @@
 services:
+  nginx:
+    image: nginx
+    volumes:
+    - type: bind
+      source: ./conf.d
+      target: /etc/nginx/conf.d
+    ports:
+     - "6080:80"
+    environment:
+     - NGINX_HOST=localhost
+     - NGINX_PORT=80
+  python:
+    image: python
+    command:  python -m http.server 8000 --bind 0.0.0.0
+    ports:
+      - "5080:8000"
